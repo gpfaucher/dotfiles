@@ -1,18 +1,19 @@
 #! /usr/bin/env fish
 
 function link_arch_configs
-  set source_folder ~/dev/projects/dotfiles/arch_linux
-  set config_folder ~/.config
+  set source_folder ~/dev/projects/dotfiles/arch_linux/
+  set config_folder ~/.config/
   set ignored_folders "etc"
 
   for item in $source_folder/*
-      if not contains ignored_folders test -d $item -a (basename $item) 
-          set target_name (basename $item)
-          set link_path $config_folder/$target_name
+    if not contains ignored_folders test -d $item -a (basename $item) 
+      set target_name (basename $item)
+      set link_path $config_folder/$target_name
 
-          echo "Creating symlink for $target_name"
-          ln -sfn $item $link_path
-      end
+      echo "Creating symlink for $target_name"
+      ln -sfn $item $link_path
+      ln -snf ~/dev/projects/dotfiles/arch_linux/nvim ~/.config/nvim
+    end
   end
 end
 
