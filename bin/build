@@ -3,7 +3,8 @@
 function link_arch_configs
   set source_folder ~/dev/projects/dotfiles/arch_linux/
   set config_folder ~/.config/
-  set ignored_folders "etc"
+  set usr_source_folder /usr/local/src
+  set ignored_folders "etc" "dwm"
 
   for item in $source_folder/*
     if not contains ignored_folders test -d $item -a (basename $item) 
@@ -12,7 +13,6 @@ function link_arch_configs
 
       echo "Creating symlink for $target_name"
       ln -sfn $item $link_path
-      ln -snf ~/dev/projects/dotfiles/arch_linux/nvim ~/.config/nvim
     end
   end
 end
@@ -25,5 +25,3 @@ switch (uname)
    case '*'
        echo "You're using an unsupported OS. Aborted build process."
 end
-
-
