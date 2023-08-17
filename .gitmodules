@@ -1,0 +1,3 @@
+[submodule "arch_linux/usr/dwm"]
+	path = arch_linux/usr/dwm
+	url = git@gitlab.com:gabrielfaucher/dwm.git
