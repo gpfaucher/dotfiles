@@ -8,6 +8,7 @@ function link_arch_configs
 
   cd $dotfiles_folder/arch_linux
   stow -Rt $config_folder config
+  stow -Rt ~ home
   sudo stow -Rt $usr_source_folder usr
   cd $existing_pwd
   echo "Linked configuration files succesfully!"
