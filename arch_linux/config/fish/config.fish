@@ -1,3 +1,4 @@
+source ~/.config/fish/themes/kanagawa.fish
 
 # Start X at login
 if status is-login
