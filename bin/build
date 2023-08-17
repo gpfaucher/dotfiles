@@ -1,20 +1,17 @@
 #! /usr/bin/env fish
 
 function link_arch_configs
-  set source_folder ~/dev/projects/dotfiles/arch_linux/
+  set dotfiles_folder ~/dev/projects/dotfiles
   set config_folder ~/.config/
   set usr_source_folder /usr/local/src
-  set ignored_folders "etc" "dwm"
+  set existing_pwd (pwd)
 
-  for item in $source_folder/*
-    if not contains ignored_folders test -d $item -a (basename $item) 
-      set target_name (basename $item)
-      set link_path $config_folder/$target_name
+  cd $dotfiles_folder/arch_linux
+  stow -Rt $config_folder config
+  sudo stow -Rt $usr_source_folder usr
+  cd $existing_pwd
+  echo "Linked configuration files succesfully!"
 
-      echo "Creating symlink for $target_name"
-      ln -sfn $item $link_path
-    end
-  end
 end
 
 switch (uname)
