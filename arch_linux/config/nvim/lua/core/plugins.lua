@@ -34,12 +34,7 @@ lazy.setup({
 
   -- Theming
   "nvim-lualine/lualine.nvim",
-  {
-    "rebelot/kanagawa.nvim",
-    config = function()
-      require("kanagawa").setup({})
-    end,
-  },
+  "rebelot/kanagawa.nvim",
   {
     "glepnir/lspsaga.nvim",
     event = "LspAttach",

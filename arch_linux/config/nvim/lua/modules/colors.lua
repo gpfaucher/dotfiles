@@ -4,6 +4,9 @@
 -- See :help nvim-treesitter-modules
 require("nvim-treesitter.configs").setup({
   highlight = { enable = true },
+  sync_install = false,
+  ignore_install = {},
+  modules = {},
   auto_install = true,
   -- :help nvim-treesitter-textobjects-modules
   textobjects = {
@@ -23,3 +26,17 @@ require("nvim-treesitter.configs").setup({
     enable = true,
   },
 })
+
+require("kanagawa").setup({
+  transparent = true,
+  colors = {
+    theme = {
+      all = {
+        ui = {
+          bg_gutter = "none"
+        }
+      }
+    }
+  }
+})
+vim.cmd("colorscheme kanagawa")
