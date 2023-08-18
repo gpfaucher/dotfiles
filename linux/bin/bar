@@ -1,0 +1,38 @@
+#! /usr/bin/env fish
+
+
+function clock
+  set current_time (date '+%H:%M')
+  printf " 󱑆 "
+  printf " $current_time "
+end
+
+
+function cpu
+  set cpu_val (grep -o "^[^ ]*" /proc/loadavg)
+
+  printf "  "
+  printf " $cpu_val%% "
+end
+
+function pkg_updates
+    set updates (checkupdates | wc -l)
+
+    if [ -z "$updates" ]
+        printf "  Fully Updated"
+    else
+        printf "  $updates"" updates"
+    end
+end
+
+function mem
+  set mem_val (free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)
+  printf " "
+  printf " $mem_val"
+end
+
+
+while true
+    sleep 1
+    xsetroot -name "$(pkg_updates) $(cpu) $(mem) $(clock)"
+end

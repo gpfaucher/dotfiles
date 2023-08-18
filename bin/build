@@ -1,14 +1,15 @@
 #! /usr/bin/env fish
 
-function link_arch_configs
+function link_linux_configs
   set dotfiles_folder ~/dev/projects/dotfiles
   set config_folder ~/.config/
   set usr_source_folder /usr/local/src
   set existing_pwd (pwd)
 
-  cd $dotfiles_folder/arch_linux
+  cd $dotfiles_folder/linux
   stow -Rt $config_folder config
   stow -Rt ~ home
+  stow -Rt ~/.local/bin bin 
   sudo stow -Rt $usr_source_folder usr
   cd $existing_pwd
   echo "Linked configuration files succesfully!"
@@ -17,7 +18,7 @@ end
 
 switch (uname)
    case Linux
-       link_arch_configs
+       link_linux_configs
    case Darwin
        echo "Hi Hexly!"
    case '*'
