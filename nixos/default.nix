@@ -1,20 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware.nix
-    ];
+  imports = [ ./hardware.nix ];
 
-    # Bootloader.
+  # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
-  networking.hostName = "nixos"; # Define your hostname.
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "nixbox";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -22,9 +14,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "nl_NL.UTF-8";
     LC_IDENTIFICATION = "nl_NL.UTF-8";
@@ -55,13 +45,13 @@
         extraPackages = haskellPackages: [
           haskellPackages.xmonad-contrib
         ];
-        config = builtins.readFile ./config/xmonad.hs;
       };
     };
     displayManager = {
       defaultSession = "none+xmonad";
       startx.enable = true;
     };
+    videoDrivers = ["nvidia"];
   };
 
   # Configure console keymap
@@ -71,10 +61,11 @@
   users.users.gabriel = {
     isNormalUser = true;
     description = "Gabriel";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "audio"];
     packages = with pkgs; [ fish ];
     shell = pkgs.fish;
   };
+
   programs.fish.enable = true;
 
   # Allow unfree packages
@@ -91,45 +82,29 @@
     };
     nvidia = {
       modesetting.enable = true;
+      powerManagement.enable = true;
+      # powerManagement.finegrained = true;
+      open = true;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+
     };
+    bluetooth.enable = true;
+    pulseaudio.enable = true;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  services.blueman.enable = true;
+  services.picom.enable = true;
+
   environment.systemPackages = with pkgs; [
-   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+   vim
    wget
    neovim
    git
    gcc
+   ripgrep
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }

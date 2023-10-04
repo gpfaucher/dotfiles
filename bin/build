@@ -1,26 +1,10 @@
 #! /usr/bin/env fish
 
-function link_linux_configs
-  set dotfiles_folder ~/dev/projects/dotfiles
-  set config_folder ~/.config/
-  set usr_source_folder /usr/local/src
-  set existing_pwd (pwd)
-
-  cd $dotfiles_folder/linux
-  stow -Rt $config_folder config
-  stow -Rt ~ home
-  stow -Rt ~/.local/bin bin 
-  sudo stow -Rt $usr_source_folder usr
-  cd $existing_pwd
-  echo "Linked configuration files succesfully!"
-
-end
-
 switch (uname)
    case Linux
-       link_linux_configs
+       nixos-rebuild switch --flake .#nixbox
    case Darwin
-       echo "Hi Hexly!"
+       darwin-rebuild switch --flake .#nixbook
    case '*'
        echo "You're using an unsupported OS. Aborted build process."
 end

@@ -10,7 +10,7 @@ with pkgs;
   vlc
   fontconfig
 
-alacritty
+  alacritty
   firefox
 
   stylish-haskell
@@ -27,12 +27,14 @@ alacritty
   chromedriver
   direnv
   rofi
-  
+
   flameshot
 
   simplescreenrecorder
 
   feh
+  hsetroot
   zathura
   spotify
+  picom
 ]
