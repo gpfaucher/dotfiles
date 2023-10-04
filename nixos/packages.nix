@@ -37,4 +37,5 @@ with pkgs;
   zathura
   spotify
   picom
+  xclip
 ]
