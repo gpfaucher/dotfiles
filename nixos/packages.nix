@@ -10,6 +10,7 @@ with pkgs;
   vlc
   fontconfig
 
+alacritty
   firefox
 
   stylish-haskell

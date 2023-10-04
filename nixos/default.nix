@@ -2,15 +2,13 @@
 
 {
   imports =
-    [ 
+    [
       ./hardware.nix
     ];
 
     # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev"; # Define your hostname.
-  boot.loader.grub.useOSProber = true; # Define your hostname.
+  boot.loader.systemd-boot.enable = true;
   networking.hostName = "nixos"; # Define your hostname.
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -45,15 +43,25 @@
     layout = "us";
     xkbVariant = "";
     screenSection = ''
-    Option "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-    Option "AllowIndirectGLXProtocol" "off"
-    Option "TripleBuffer" "on"
+      Option "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+      Option "AllowIndirectGLXProtocol" "off"
+      Option "TripleBuffer" "on"
     '';
     libinput.enable = true;
     windowManager = {
-      xmonad.config = builtins.readFile ./config/xmonad.hs;
+      xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+        extraPackages = haskellPackages: [
+          haskellPackages.xmonad-contrib
+        ];
+        config = builtins.readFile ./config/xmonad.hs;
+      };
     };
-    displayManager.startx.enable = true;
+    displayManager = {
+      defaultSession = "none+xmonad";
+      startx.enable = true;
+    };
   };
 
   # Configure console keymap
@@ -93,6 +101,7 @@
    wget
    neovim
    git
+   gcc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
