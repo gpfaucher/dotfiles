@@ -13,7 +13,7 @@
   # This is a module from nix-darwin
   # Homebrew is *installed* via the flake input nix-homebrew
 #   homebrew.enable = true;
-#   homebrew.casks = pkgs.callPackage ./casks.nix {};
+  homebrew.casks = pkgs.callPackage ./casks.nix {};
 # 
   # These app IDs are from using the mas CLI app
   # mas = mac app store
