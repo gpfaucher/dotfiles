@@ -2,7 +2,7 @@
 
 switch (uname)
    case Linux
-       nixos-rebuild switch --flake .#nixbox
+       sudo nixos-rebuild switch --flake .#nixbox
    case Darwin
        darwin-rebuild switch --flake .#nixbook
    case '*'

@@ -1,6 +1,6 @@
 {
   description = "A very basic flake";
-  inputs= {
+  inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/master";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
@@ -17,10 +17,7 @@
       flake = false;
     };
   };
-  outputs = { self, nixpkgs, home-manager, nix-homebrew, homebrew-core, homebrew-cask } @inputs: {
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
-
+  outputs = { self, nixpkgs, home-manager, nix-homebrew, homebrew-core, homebrew-cask, darwin } @inputs: {
 		nixosConfigurations = {
 			nixbox = nixpkgs.lib.nixosSystem {
 				specialArgs = inputs;
@@ -40,7 +37,7 @@
       modules = [
         home-manager.darwinModules.home-manager
         # nix-homebrew.darwinModules.nix-homebrew
-         {
+         # {
         # nix-homebrew = {
         #   enable = true;
         #   user = "gabriel";
@@ -51,7 +48,7 @@
         #   mutableTaps = false;
         #   autoMigrate = true;
         # };
-      }
+      # };
         ./darwin
       ];
     };

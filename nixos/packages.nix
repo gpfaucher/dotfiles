@@ -38,4 +38,5 @@ with pkgs;
   spotify
   picom
   xclip
+  jetbrains-mono
 ]
