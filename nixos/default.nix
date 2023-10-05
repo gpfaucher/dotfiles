@@ -66,7 +66,6 @@
     shell = pkgs.fish;
   };
 
-  programs.fish.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -103,7 +102,25 @@
    git
    gcc
    ripgrep
+   grc
+
+   # Fish shell plugins
+   fishPlugins.done
+   fishPlugins.colored-man-pages
+   fishPlugins.pisces
+   fishPlugins.grc
+   starship
+
   ];
+  programs.fish.enable = true;
+  programs.starship.enable = true;
+  programs.starship.settings = {
+    add_newline = false;
+    character = {
+      success_symbol = "[➜](bold green)";
+      error_symbol = "[✗](bold red)";
+    };
+  };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "23.05"; # Did you read the comment?

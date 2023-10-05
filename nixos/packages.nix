@@ -39,4 +39,5 @@ with pkgs;
   picom
   xclip
   jetbrains-mono
+  nodejs_latest
 ]

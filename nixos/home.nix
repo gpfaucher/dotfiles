@@ -18,4 +18,17 @@
     configFile."xmonad/xmonad.hs" = { source = ./config/xmonad.hs;};
     configFile."alacritty/alacritty.yml" = { source = ./config/alacritty.yml;};
   };
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting
+    '';
+    plugins = [
+      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+      { name = "done"; src = pkgs.fishPlugins.done.src; }
+      { name = "pisces"; src = pkgs.fishPlugins.pisces.src; }
+      { name = "colored-man-pages"; src = pkgs.fishPlugins.colored-man-pages.src; }
+    ];
+  };
 }
