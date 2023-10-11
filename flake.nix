@@ -3,21 +3,69 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/master";
     home-manager.url = "github:nix-community/home-manager";
+    devshell.url = "github:numtide/devshell";
+    android-nixpkgs.url = "github:tadfisher/android-nixpkgs";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    flake-utils.url = "github:numtide/flake-utils";
+
+
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
     };
+
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
   };
-  outputs = { self, nixpkgs, home-manager, nix-homebrew, homebrew-core, homebrew-cask, darwin } @inputs: {
+  outputs = { self, nixpkgs, flake-utils, home-manager, nix-homebrew, homebrew-core, homebrew-cask, darwin, android-nixpkgs, devshell } @inputs:
+    {
+      overlay = final: prev: {
+        inherit (self.packages.${final.system}) android-sdk android-studio;
+      };
+    }
+    //
+    flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [
+            devshell.overlays.default
+            self.overlay
+          ];
+        };
+      in
+      {
+        packages = {
+          android-sdk = android-nixpkgs.sdk.${system} (sdkPkgs: with sdkPkgs; [
+            # Useful packages for building and testing.
+            build-tools-30-0-2
+            cmdline-tools-latest
+            emulator
+            platform-tools
+            platforms-android-30
+
+            # Other useful packages for a development environment.
+            sources-android-30
+            system-images-android-30-google-apis-x86
+            system-images-android-30-google-apis-playstore-x86
+          ]);
+
+          android-studio = pkgs.androidStudioPackages.stable;
+        };
+
+        devShell = import ./devshell.nix { inherit pkgs; };
+      }
+    )
+    //
+  {
 		nixosConfigurations = {
 			nixbox = nixpkgs.lib.nixosSystem {
 				specialArgs = inputs;

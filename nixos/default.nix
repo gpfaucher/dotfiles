@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  androidNixpkgs = lib.getFlake "android-nixpkgs";
+in
 {
   imports = [ ./hardware.nix ];
 
@@ -13,6 +16,10 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
+
+  # services.udev.extraRules = ''
+  #   ACTION=="add", SUBSYSTEM=="usb", DRIVER=="usb", ATTR{power/wakeup}="enabled"
+  # '';
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -81,12 +88,10 @@
     };
     nvidia = {
       modesetting.enable = true;
-      powerManagement.enable = true;
-      # powerManagement.finegrained = true;
+      powerManagement.enable = false;
       open = true;
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.beta;
-
     };
     bluetooth.enable = true;
     pulseaudio.enable = true;
@@ -110,8 +115,8 @@
    fishPlugins.pisces
    fishPlugins.grc
    starship
-
   ];
+
   programs.fish.enable = true;
   programs.starship.enable = true;
   programs.starship.settings = {

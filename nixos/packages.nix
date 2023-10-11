@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ...  }:
 with pkgs;
 
 [
@@ -7,6 +7,9 @@ with pkgs;
   cmake
   home-manager
 
+  android-studio
+  gradle
+  jdk20
   vlc
   fontconfig
 
@@ -40,4 +43,6 @@ with pkgs;
   xclip
   jetbrains-mono
   nodejs_latest
+  jdk20
+  watchman
 ]
