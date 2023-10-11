@@ -13,6 +13,8 @@ with pkgs;
   nix-your-shell
   alacritty
   firefox
+  unzip
+  stylua
 
   stylish-haskell
   stack

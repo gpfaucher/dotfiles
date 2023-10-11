@@ -62,11 +62,10 @@ return {
 					require("neodev").setup({
 						pathStrict = true,
 					})
-
 				end,
-        ["tsserver"] = function ()
-          require("typescript-tools").setup({})
-        end
+				["tsserver"] = function()
+					require("typescript-tools").setup({})
+				end,
 			})
 		end,
 	},

@@ -20,6 +20,6 @@ create_autocmd("FileType", {
 	command = "nnoremap <buffer> q <cmd>quit<cr>",
 })
 
-create_autocmd("BufWritePost", {
-	command = "FormatWrite",
-})
+-- create_autocmd("BufWritePost", {
+-- 	command = "FormatWrite",
+-- })
