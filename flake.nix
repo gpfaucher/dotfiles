@@ -8,7 +8,6 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     flake-utils.url = "github:numtide/flake-utils";
 
-
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,47 +24,21 @@
     };
   };
   outputs = { self, nixpkgs, flake-utils, home-manager, nix-homebrew, homebrew-core, homebrew-cask, darwin, android-nixpkgs, devshell } @inputs:
-    {
-      overlay = final: prev: {
-        inherit (self.packages.${final.system}) android-sdk android-studio;
+  let
+    linuxSystems = [ "x86_64-linux" ];
+    darwinSystems = [ "aarch64-darwin" ];
+    forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) (system: f system);
+    devShell = system: let pkgs = nixpkgs.legacyPackages.${system}; in {
+      default = with pkgs; mkShell {
+        nativeBuildInputs = with pkgs; [ ruby cargo];
+        shellHook = with pkgs; ''
+          export EDITOR=vim
+        '';
       };
-    }
-    //
-    flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = [
-            devshell.overlays.default
-            self.overlay
-          ];
-        };
-      in
-      {
-        packages = {
-          android-sdk = android-nixpkgs.sdk.${system} (sdkPkgs: with sdkPkgs; [
-            # Useful packages for building and testing.
-            build-tools-30-0-2
-            cmdline-tools-latest
-            emulator
-            platform-tools
-            platforms-android-30
-
-            # Other useful packages for a development environment.
-            sources-android-30
-            system-images-android-30-google-apis-x86
-            system-images-android-30-google-apis-playstore-x86
-          ]);
-
-          android-studio = pkgs.androidStudioPackages.stable;
-        };
-
-        devShell = import ./devshell.nix { inherit pkgs; };
-      }
-    )
-    //
+    };
+  in
   {
+    devShells = forAllSystems devShell;
 		nixosConfigurations = {
 			nixbox = nixpkgs.lib.nixosSystem {
 				specialArgs = inputs;
@@ -102,3 +75,38 @@
     };
   };
 }
+
+    # flake-utils.lib.eachSystem [ "x86_64-linux", "" ] (system:
+    #   let
+    #     pkgs = import nixpkgs {
+    #       inherit system;
+    #       config.allowUnfree = true;
+    #       overlays = [
+    #         devshell.overlays.default
+    #         self.overlay
+    #       ];
+    #     };
+    #   in
+    #   {
+    #     packages = {
+    #       android-sdk = android-nixpkgs.sdk.${system} (sdkPkgs: with sdkPkgs; [
+    #         # Useful packages for building and testing.
+    #         build-tools-30-0-2
+    #         cmdline-tools-latest
+    #         emulator
+    #         platform-tools
+    #         platforms-android-30
+    #
+    #         # Other useful packages for a development environment.
+    #         sources-android-30
+    #         system-images-android-30-google-apis-x86
+    #         system-images-android-30-google-apis-playstore-x86
+    #       ]);
+    #
+    #       android-studio = pkgs.androidStudioPackages.stable;
+    #     };
+    #
+    #     devShell = import ./devshell.nix { inherit pkgs; };
+    #   }
+    # )
+    # //
