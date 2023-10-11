@@ -57,7 +57,7 @@
         '';
       };
       mobile = with pkgs; mkShell {
-        nativeBuildInputs = with pkgs; [ android-studio android-sdk jdk11 ];
+        nativeBuildInputs = with pkgs; [ android-studio android-sdk jdk11 gradle ];
         shellHook = with pkgs; ''
           export EDITOR=vim
           export ANDROID_HOME="${android-sdk}/share/android-sdk"

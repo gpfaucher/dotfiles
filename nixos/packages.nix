@@ -7,12 +7,10 @@ with pkgs;
   cmake
   home-manager
 
-  android-studio
-  gradle
-  jdk20
   vlc
   fontconfig
 
+  nix-your-shell
   alacritty
   firefox
 
