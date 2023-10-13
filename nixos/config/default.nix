@@ -5,9 +5,9 @@
 
   xdg = {
     enable = true;
-    configFile."nvim" = { source = ./config/nvim; };
-    configFile."picom/picom.conf" = { source = ./config/picom.conf; };
-    configFile."xmonad/xmonad.hs" = { source = ./config/xmonad.hs; };
-    configFile."alacritty/alacritty.yml" = { source = ./config/alacritty.yml; };
+    configFile."nvim" = { source = ./nvim; };
+    configFile."picom/picom.conf" = { source = ./picom.conf; };
+    configFile."xmonad/xmonad.hs" = { source = ./xmonad.hs; };
+    configFile."alacritty/alacritty.yml" = { source = ./alacritty.yml; };
   };
 }

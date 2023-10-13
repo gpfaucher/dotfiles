@@ -1,4 +1,4 @@
-{ pkgs, ...  }:
+{ pkgs, ... }:
 with pkgs;
 
 [
@@ -18,6 +18,9 @@ with pkgs;
   alacritty
   firefox
   unzip
+
+  # Utilities
+  tmuxp
 
   # Formatters
   stylua
