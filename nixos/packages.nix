@@ -6,6 +6,9 @@ with pkgs;
   gnumake
   cmake
   home-manager
+  black
+  isort
+  prettierd
 
   vlc
   fontconfig

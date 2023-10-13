@@ -7,16 +7,16 @@ let pkgs = import nixpkgs {
 
 android-sdk = android-nixpkgs.sdk.${system} (sdkPkgs: with sdkPkgs; [
   # Useful packages for building and testing.
-  build-tools-30-0-2
+  build-tools-34-0-0
   cmdline-tools-latest
   emulator
   platform-tools
-  platforms-android-30
+  platforms-android-34
 
   # Other useful packages for a development environment.
-  sources-android-30
-  system-images-android-30-google-apis-x86
-  system-images-android-30-google-apis-playstore-x86
+  sources-android-34
+  system-images-android-34-google-apis-x86-64
+  system-images-android-34-google-apis-playstore-x86-64
 ]);
 
 android-studio = pkgs.androidStudioPackages.stable;
@@ -28,12 +28,12 @@ default = with pkgs; mkShell {
   '';
 };
 mobile = with pkgs; mkShell {
-  nativeBuildInputs = with pkgs; [ android-studio android-sdk jdk11 gradle ];
+  nativeBuildInputs = with pkgs; [ android-studio android-sdk jdk20 gradle ];
   shellHook = with pkgs; ''
-    export EDITOR=vim
+    export EDITOR=nvim
     export ANDROID_HOME="${android-sdk}/share/android-sdk"
     export ANDROID_SDK_ROOT="${android-sdk}/share/android-sdk"
-    export JAVA_HOME=${jdk11.home}
+    export JAVA_HOME=${jdk20.home}
   '';
 };
 }

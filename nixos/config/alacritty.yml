@@ -12,7 +12,7 @@ window:
 scrolling:
   # maximum number of lines in the scrollback buffer. Specifying '0' will
   # disable scrolling.
-  history: 0
+  history: 10000
   multiplier: 3
 
 font:
