@@ -1,8 +1,5 @@
 { config, pkgs, lib, ... }:
 
-let
-  androidNixpkgs = lib.getFlake "android-nixpkgs";
-in
 {
   imports = [ ./hardware.nix ];
 
@@ -49,16 +46,14 @@ in
       xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        extraPackages = haskellPackages: [
-          haskellPackages.xmonad-contrib
-        ];
+        extraPackages = haskellPackages: [ haskellPackages.xmonad-contrib ];
       };
     };
     displayManager = {
       defaultSession = "none+xmonad";
       startx.enable = true;
     };
-    videoDrivers = ["nvidia"];
+    videoDrivers = [ "nvidia" ];
   };
 
   # Configure console keymap
@@ -68,11 +63,10 @@ in
   users.users.gabriel = {
     isNormalUser = true;
     description = "Gabriel";
-    extraGroups = [ "networkmanager" "wheel" "docker" "audio"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "audio" ];
     packages = with pkgs; [ fish ];
     shell = pkgs.fish;
   };
-
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -101,20 +95,20 @@ in
   services.picom.enable = true;
 
   environment.systemPackages = with pkgs; [
-   vim
-   wget
-   neovim
-   git
-   gcc
-   ripgrep
-   grc
+    vim
+    wget
+    neovim
+    git
+    gcc
+    ripgrep
+    grc
 
-   # Fish shell plugins
-   fishPlugins.done
-   fishPlugins.colored-man-pages
-   fishPlugins.pisces
-   fishPlugins.grc
-   starship
+    # Fish shell plugins
+    fishPlugins.done
+    fishPlugins.colored-man-pages
+    fishPlugins.pisces
+    fishPlugins.grc
+    starship
   ];
 
   programs.fish.enable = true;
@@ -127,6 +121,6 @@ in
     };
   };
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "23.05"; # Did you read the comment?
 }

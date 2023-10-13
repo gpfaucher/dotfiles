@@ -34,6 +34,7 @@ mobile = with pkgs; mkShell {
     export ANDROID_HOME="${android-sdk}/share/android-sdk"
     export ANDROID_SDK_ROOT="${android-sdk}/share/android-sdk"
     export JAVA_HOME=${jdk20.home}
+    tmux
   '';
 };
 }

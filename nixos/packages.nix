@@ -9,6 +9,7 @@ with pkgs;
   black
   isort
   prettierd
+  tmux
 
   vlc
   fontconfig
@@ -17,35 +18,43 @@ with pkgs;
   alacritty
   firefox
   unzip
-  stylua
 
+  # Formatters
+  stylua
+  nixfmt
   stylish-haskell
+
+  # Haskell
   stack
   cabal-install
   haskellPackages.hoogle
   haskellPackages.ghcide
   haskellPackages.gtk2hs-buildtools
 
+  # Audio
   cava
   pavucontrol
+  spotify
 
   cypress
   chromedriver
   direnv
   rofi
 
+  # Media Capture
   flameshot
-
   simplescreenrecorder
 
+  # Visual Tools
   feh
   hsetroot
+
+  # PDF
   zathura
-  spotify
+
   picom
   xclip
   jetbrains-mono
   nodejs_latest
-  jdk20
   watchman
 ]
