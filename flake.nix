@@ -46,6 +46,7 @@
 				];
 			};
 		};
+    darwinConfigurations = {
     "nixbook" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = inputs;
@@ -78,4 +79,7 @@
         ./darwin
       ];
     };
+
+    };
   };
+  }
