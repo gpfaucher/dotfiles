@@ -1,5 +1,6 @@
 {
-  description = "A very basic flake";
+  description =
+    "A flaked Nix configuration for a NixOS workstation and a MacOS system with nix & homebrew";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/master";
     home-manager.url = "github:nix-community/home-manager";
