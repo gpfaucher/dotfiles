@@ -1,11 +1,15 @@
 { config, pkgs, ... }:
 
-{
+let
+  shared-system-packages =
+    import ../common/system-packages.nix { inherit pkgs; };
+in {
   imports = [ ./home.nix ];
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [ vim nixfmt ];
+  environment.systemPackages = with pkgs;
+    [ vim nixfmt ] ++ shared-system-packages;
 
   nix = {
     package = pkgs.nixUnstable;

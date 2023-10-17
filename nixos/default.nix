@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 
-{
+let
+  shared-system-packages =
+    import ../common/system-packages.nix { inherit pkgs; };
+in {
   imports = [ ./hardware.nix ];
 
   # Bootloader.
@@ -94,22 +97,7 @@
   services.blueman.enable = true;
   services.picom.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    neovim
-    git
-    gcc
-    ripgrep
-    grc
-
-    # Fish shell plugins
-    fishPlugins.done
-    fishPlugins.colored-man-pages
-    fishPlugins.pisces
-    fishPlugins.grc
-    starship
-  ];
+  environment.systemPackages = with pkgs; [ ] ++ shared-system-packages;
 
   programs.fish.enable = true;
   programs.starship.enable = true;
