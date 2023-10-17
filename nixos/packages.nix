@@ -1,31 +1,16 @@
 { pkgs, ... }:
 with pkgs;
 
-[
+let common-packages = import ../common/packages.nix { inherit pkgs; };
+in [
   _1password-gui
-  gnumake
-  cmake
-  home-manager
-  black
-  isort
-  prettierd
-  tmux
 
   vlc
-  fontconfig
 
-  nix-your-shell
   alacritty
   firefox
-  unzip
-
-  # Utilities
-  tmuxp
 
   # Formatters
-  stylua
-  nixfmt
-  stylish-haskell
 
   # Haskell
   stack
@@ -40,8 +25,6 @@ with pkgs;
   spotify
 
   cypress
-  chromedriver
-  direnv
   rofi
 
   # Media Capture
@@ -52,12 +35,6 @@ with pkgs;
   feh
   hsetroot
 
-  # PDF
-  zathura
-
   picom
   xclip
-  jetbrains-mono
-  nodejs_latest
-  watchman
 ]
