@@ -25,7 +25,7 @@ let
 in {
   default = with pkgs;
     mkShell {
-      nativeBuildInputs = with pkgs; [ lib ruby ];
+      nativeBuildInputs = with pkgs; [ ruby ];
       shellHook = ''
         export EDITOR=vim
       '';
