@@ -1,7 +1,7 @@
 { config, pkgs, xdg, lib, android-nixpkgs, ... }:
 
 {
-  imports = [ ./config ];
+  imports = [ ./config ../common/config ];
   home = {
     enableNixpkgsReleaseCheck = false;
     username = "gabriel";
