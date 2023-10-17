@@ -34,17 +34,7 @@
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
-    users."gabriel" = { pkgs, config, lib, ... }:{
-      home.enableNixpkgsReleaseCheck = false;
-    #   home.packages = pkgs.callPackage ./packages.nix {};
-
-      home.stateVersion = "23.05";
-    #   programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib; };
-
-      # Marked broken Oct 20, 2022 check later to remove this
-      # https://github.com/nix-community/home-manager/issues/3344
-      manual.manpages.enable = false;
-    };
+    users."gabriel" = import ./config.nix;
   };
 
   # Fully declarative dock using the latest from Nix Store
