@@ -22,6 +22,7 @@ with pkgs; [
   nixfmt
   stylish-haskell
   direnv
+  python311Packages.mdformat
 
   grc
 
