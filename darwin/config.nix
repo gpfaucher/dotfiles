@@ -1,10 +1,10 @@
-{pkgs, ...}:
-{
-    imports = [../common/config];
+{ pkgs, ... }: {
+  imports = [ ../common/config ];
 
-    home = {
-      enableNixpkgsReleaseCheck = false;
-      packages = pkgs.callPackage ./packages.nix {};
-      stateVersion = "23.05";
-    };
+  home = {
+    enableNixpkgsReleaseCheck = false;
+    packages = pkgs.callPackage ./packages.nix { };
+    stateVersion = "23.05";
+  };
 }
+

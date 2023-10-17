@@ -1,26 +1,24 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./home.nix
-  ];
+  imports = [ ./home.nix ];
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs;
-    [
-      vim
-      nixfmt
-    ];
+  environment.systemPackages = with pkgs; [ vim nixfmt ];
 
-    nix = {
+  nix = {
     package = pkgs.nixUnstable;
     settings.trusted-users = [ "@admin" "gabriel" ];
 
     gc = {
       user = "root";
       automatic = true;
-      interval = { Weekday = 0; Hour = 2; Minute = 0; };
+      interval = {
+        Weekday = 0;
+        Hour = 2;
+        Minute = 0;
+      };
       options = "--delete-older-than 30d";
     };
 
@@ -29,7 +27,6 @@
       experimental-features = nix-command flakes
     '';
   };
-
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
@@ -43,8 +40,7 @@
   #programs.zsh.enable = true;  # default shell on catalina
   programs.fish.enable = true;
 
-    system.checks.verifyNixPath = false;
-
+  system.checks.verifyNixPath = false;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
@@ -52,9 +48,7 @@
     stateVersion = 4;
 
     defaults = {
-      LaunchServices = {
-        LSQuarantine = false;
-      };
+      LaunchServices = { LSQuarantine = false; };
 
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
@@ -80,9 +74,7 @@
         tilesize = 48;
       };
 
-      finder = {
-        _FXShowPosixPathInTitle = false;
-      };
+      finder = { _FXShowPosixPathInTitle = false; };
 
       trackpad = {
         Clicking = true;

@@ -1,4 +1,4 @@
-{}:
+{ }:
 
 [
   # Development Tools
@@ -31,3 +31,4 @@
   # AI
   "diffusionbee"
 ]
+
