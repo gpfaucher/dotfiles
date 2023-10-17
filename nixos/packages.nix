@@ -7,7 +7,7 @@ in common-packages ++ [
 
   vlc
 
-  alacritty
+  alacritty_git
   firefox
 
   # Formatters
