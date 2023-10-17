@@ -2,7 +2,7 @@
 with pkgs;
 
 let common-packages = import ../common/packages.nix { inherit pkgs; };
-in [
+in common-packages ++ [
   _1password-gui
 
   vlc
