@@ -40,6 +40,7 @@ in {
         android-sdk
         jdk20
         aapt
+        flutter
         # gradle
         (writeShellScriptBin "gradle" ''
           ${gradle}/bin/gradle -Dorg.gradle.project.android.aapt2FromMavenOverride=${android-sdk}/share/android-sdk/build-tools/33.0.2/aapt2 "$@"'')
