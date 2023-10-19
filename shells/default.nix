@@ -5,15 +5,18 @@ let
     inherit system;
     config.allowUnfree = true;
   };
+  buildToolsVersion = "30.0.3";
 
   android-sdk = android-nixpkgs.sdk.${system} (sdkPkgs:
     with sdkPkgs; [
       # Useful packages for building and testing.
-      build-tools-34-0-0
+      build-tools-30-0-2
       cmdline-tools-latest
       emulator
       platform-tools
       platforms-android-34
+      # ndk-26-0-10792818
+      ndk-bundle
 
       # Other useful packages for a development environment.
       sources-android-34
@@ -31,19 +34,22 @@ in {
       '';
     };
   mobile = with pkgs;
-    mkShell {
+    mkShell rec {
       nativeBuildInputs = with pkgs; [
         android-studio
         android-sdk
         jdk20
-        gradle
+        aapt
+        # gradle
+        (writeShellScriptBin "gradle" ''
+          ${gradle}/bin/gradle -Dorg.gradle.project.android.aapt2FromMavenOverride=${android-sdk}/share/android-sdk/build-tools/33.0.2/aapt2 "$@"'')
       ];
       shellHook = with pkgs; ''
-        export EDITOR=nvim
-        export ANDROID_HOME="${android-sdk}/share/android-sdk"
-        export ANDROID_SDK_ROOT="${android-sdk}/share/android-sdk"
-        export JAVA_HOME=${jdk20.home}
-        tmux
+          tmux
+          set -Ux ANDROID_SDK_ROOT "${android-sdk}/share/android-sdk"
+          set -Ux GRADLE_OPTS  "-Dorg.gradle.project.android.aapt2FromMavenOverride=$ANDROID_SDK_ROOT/build-tools/34.0.0/aapt2"
+          set -Ux JAVA_HOME "${jdk20.home}";
+        # EDITOR = "nvim";
       '';
     };
 }
