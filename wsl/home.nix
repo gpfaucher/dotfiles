@@ -8,8 +8,6 @@
     packages = pkgs.callPackage ./packages.nix { };
     stateVersion = "23.05";
     homeDirectory = lib.mkDefault "/home/gabriel";
-
-    file.".xinitrc".source = ./config/xinitrc;
   };
 
 }

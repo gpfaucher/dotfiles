@@ -1,13 +1,13 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nixos-wsl, ... }:
 
 let
   shared-system-packages =
     import ../common/system-packages.nix { inherit pkgs; };
 in {
-  imports = [ ./hardware.nix <nixos-wsl/modules> ];
+  imports = [ ./hardware.nix ];
 
   wsl.enable = true;
-  wsl.defaultUser = "nixos";
+  wsl.defaultUser = "gabriel";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -44,6 +44,11 @@ in {
       error_symbol = "[✗](bold red)";
     };
   };
+
+  security.sudo.wheelNeedsPassword = false;
+
+  # Don't allow emergency mode, because we don't have a console.
+  systemd.enableEmergencyMode = false;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "23.05"; # Did you read the comment?

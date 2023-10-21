@@ -9,6 +9,7 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     flake-utils.url = "github:numtide/flake-utils";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     darwin = {
       url = "github:LnL7/nix-darwin/master";
@@ -27,7 +28,7 @@
   };
   outputs = { self, nixpkgs, flake-utils, home-manager, nix-homebrew
     , homebrew-core, homebrew-cask, darwin, android-nixpkgs, devshell, chaotic
-    }@inputs:
+    , nixos-wsl }@inputs:
     let
       linuxSystems = [ "x86_64-linux" ];
       darwinSystems = [ "aarch64-darwin" ];
@@ -56,6 +57,7 @@
           modules = [
             home-manager.nixosModules.home-manager
             chaotic.nixosModules.default
+            nixos-wsl.nixosModules.wsl
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
