@@ -51,6 +51,19 @@
             ./nixos
           ];
         };
+        wsnix = nixpkgs.lib.nixosSystem {
+          specialArgs = inputs;
+          modules = [
+            home-manager.nixosModules.home-manager
+            chaotic.nixosModules.default
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.gabriel = import ./wsl/home.nix;
+            }
+            ./wsl
+          ];
+        };
       };
       darwinConfigurations = {
         "nixbook" = darwin.lib.darwinSystem {
