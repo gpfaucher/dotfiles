@@ -8,6 +8,8 @@ with pkgs; [
   isort
   prettierd
   tmux
+  cargo
+  rustc
 
   fontconfig
 

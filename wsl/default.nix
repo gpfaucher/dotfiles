@@ -1,4 +1,4 @@
-{ config, pkgs, lib, nixos-wsl, ... }:
+{ pkgs, ... }:
 
 let
   shared-system-packages =

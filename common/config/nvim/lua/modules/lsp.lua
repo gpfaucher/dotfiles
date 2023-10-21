@@ -24,7 +24,9 @@ return {
 			local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			require("mason").setup({})
-			mason_lspconfig.setup()
+			mason_lspconfig.setup({
+				ensure_installed = { "lua_ls", "rust_analyzer", "nil_ls", "tsserver" },
+			})
 			require("lspsaga").setup({
 				symbol_in_winbar = {
 					enable = false,
