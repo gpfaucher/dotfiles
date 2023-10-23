@@ -24,8 +24,8 @@ in {
     isNormalUser = true;
     description = "Gabriel";
     extraGroups = [ "networkmanager" "wheel" "docker" "audio" ];
-    packages = with pkgs; [ fish ];
-    shell = pkgs.fish;
+    packages = with pkgs; [ zsh ];
+    shell = pkgs.zsh;
   };
 
   # Allow unfree packages
@@ -33,9 +33,10 @@ in {
 
   virtualisation.docker.enable = true;
 
-  environment.systemPackages = with pkgs; [ ] ++ shared-system-packages;
+  environment.systemPackages = [ ] ++ shared-system-packages;
+  environment.pathsToLink = [ "/share/zsh" ];
 
-  programs.fish.enable = true;
+  programs.zsh.enable = true;
   programs.starship.enable = true;
   programs.starship.settings = {
     add_newline = false;

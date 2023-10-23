@@ -1,7 +1,7 @@
 { pkgs, xdg, ... }:
 
 {
-  imports = [ ./fish.nix ./tmux.nix ];
+  imports = [ ./fish.nix ./tmux.nix ./zsh.nix ];
 
   xdg = {
     enable = true;
