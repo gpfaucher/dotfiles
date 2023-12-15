@@ -1,3 +1,0 @@
-# Nvim
-
-- deps: stylua

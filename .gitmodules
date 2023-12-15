@@ -1,6 +1,0 @@
-[submodule "linux/usr/dwm"]
-	path = linux/usr/dwm
-	url = git@gitlab.com:gabrielfaucher/dwm.git
-[submodule "linux/config/nvim"]
-	path = linux/config/nvim
-	url = git@gitlab.com:gabrielfaucher/nvim.git
